@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan 17 10:18:55 2019
+
+@author: generaljewish
+"""
+
+from tkinter import *
+
+tk=Tk()
+
+turn=1
+clicks=0
+
+buttons=[[Button(tk,text="_",font=('Papyrus 26 bold'),height=5,width=10,command=lambda:check(tk,turn,clicks)) for j in range(0,3)] for i in range(0,3)]
+
+for r in range(0,3):
+    for c in range(0,3):
+        buttons[r][c].grid(row=r,column=c,sticky=S+N+E+W)
+        
+
+def check(bu,t,c):
+    if t%2==1:
+        bu.config(text="X")
+    else:
+        bu.config(text="X")
+    
+    c+=1
+        
+    if checkwin(bu):
+        if t%2==1:
+            messagebox.showinfo("Game over","X has won!")
+        else:
+            messagebox.showinfo("Game over","O has won!")
+        resetboard()
+    elif c==9:
+        messagebox.showinfo("Game over","Tie.")
+        resetboard()
+    else:
+        t+=1
+
+def checkwin(b):
+    ro=0
+    col=0
+    for i in range(0,3):
+        for j in range(0,3):
+            if buttons[i][j]==b:
+                ro=i
+                col=j
+    if ro==col and ro==0:
+        if buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col].cget('text'):
+            return True
+        elif buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+2].cget('text'):
+            return True
+        elif buttons[ro][col].cget('text')==buttons[ro+1][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col+2].cget('text'):
+            return True
+        else:
+            return False;
+        
+    elif ro==col and ro==2:
+        if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col-2].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro-1][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col-2].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    elif ro==2 and col==0:
+        if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+2].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro-1][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col+2].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    elif ro==0 and col==2:
+        if buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col-2].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro+1][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col-2].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    elif ro==0 and col==1:
+        if buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    elif ro==1 and col==0:
+        if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+2].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    elif ro==1 and col==2:
+        if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col-2].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    elif ro==2 and col==1:
+        if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    else:
+        if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro-1][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col+1].cget('text'):
+            return True;
+        elif buttons[ro][col].cget('text')==buttons[ro-1][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col-1].cget('text'):
+            return True;
+        else:
+            return False;
+        
+    
+                
+
+
+
+tk.mainloop()
