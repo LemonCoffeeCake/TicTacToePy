@@ -6,14 +6,18 @@ Created on Thu Jan 17 10:18:55 2019
 @author: generaljewish
 """
 
-from tkinter import *
+import tkinter as tk
+from tkinter import messagebox
+from tkinter import Button
+from tkinter import S,N,E,W
 
-tk=Tk()
+root=tk.Tk()
 
 turn=1
 clicks=0
 
-buttons=[[Button(tk,text="_",font=('Papyrus 26 bold'),height=5,width=10,command=lambda:check(tk,turn,clicks)) for j in range(0,3)] for i in range(0,3)]
+buttontext=[[tk.StringVar() for j in range(0,3)] for i in range(0,3)]
+buttons=[[Button(root,text="_",font=('Papyrus 26 bold'),height=5,width=10,command=lambda:check(root,turn,clicks)) for j in range(0,3)] for i in range(0,3)]
 
 for r in range(0,3):
     for c in range(0,3):
@@ -21,11 +25,14 @@ for r in range(0,3):
         
 
 def check(bu,t,c):
-    if t%2==1:
-        bu.config(text="X")
-    else:
-        bu.config(text="X")
-    
+    for i in range(0,3):
+        for j in range(0,3):
+            if buttons[i][j]==bu:
+                if t%2==1:
+                    buttons[i][j]["text"]="X"
+                else:
+                    buttons[i][j]["text"]="O"
+   
     c+=1
         
     if checkwin(bu):
@@ -56,81 +63,86 @@ def checkwin(b):
         elif buttons[ro][col].cget('text')==buttons[ro+1][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col+2].cget('text'):
             return True
         else:
-            return False;
+            return False
         
     elif ro==col and ro==2:
         if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col-2].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro-1][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col-2].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
         
     elif ro==2 and col==0:
         if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+2].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro-1][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col+2].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
         
     elif ro==0 and col==2:
         if buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col-2].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro+1][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col-2].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
         
     elif ro==0 and col==1:
         if buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+2][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
         
     elif ro==1 and col==0:
         if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+2].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
         
     elif ro==1 and col==2:
         if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col-2].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
         
     elif ro==2 and col==1:
         if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro-2][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
         
     else:
         if buttons[ro][col].cget('text')==buttons[ro-1][col].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro][col+1].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro-1][col-1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col+1].cget('text'):
-            return True;
+            return True
         elif buttons[ro][col].cget('text')==buttons[ro-1][col+1].cget('text') and buttons[ro][col].cget('text')==buttons[ro+1][col-1].cget('text'):
-            return True;
+            return True
         else:
-            return False;
+            return False
+        
+def resetboard():
+    for i in range(0,3):
+        for j in range(0,3):
+            buttons[i][j]["text"]="_"
         
     
                 
